@@ -1,0 +1,169 @@
+select * from ramu_emp;
+drop table ishwarya;
+create table ishwarya as select * from ramu_emp;
+select * from ishwarya;
+
+
+INSERT INTO ms_auser (auser_username, auser_password) VALUES
+    ('ishwarya', '111'),
+    ('mohan', '999'),
+    ('sai', '555');
+select * from ms_auser;
+
+INSERT INTO ms_customers (
+    cust_firstname,
+    cust_lastname,
+    cust_dob,
+    cust_panno,
+    cust_mobile,
+    cust_address,
+    cust_gname,
+    cust_luudate,
+    cust_luser
+) VALUES (
+    'ishu',
+    'niki',
+    '1990-05-15',
+    'ABCDE1234F',
+    9876543210,
+    '123 Main St, City',
+    'Jane Doe',
+    '2023-09-06',
+    1  
+);
+ select * from ms_customers;
+ 
+ INSERT INTO ms_loantypes (lnty_name, lnty_desc) VALUES
+    ('Personal Loan', 'Short-term unsecured personal loans.'),
+    ('Mortgage Loan', 'Long-term secured loans for home purchases.');
+    
+select * from ms_loantypes;
+
+
+INSERT INTO ms_loanApplicants (
+    lnap_cust_id,
+    lnap_apdate,
+    lnap_lnty_id,
+    lnap_amount,
+    lnap_emi_range_from,
+    lnap_emp_range_to,
+    lnap_nom_requested,
+    lnap_cibil_score,
+    lnap_status,
+    lnap_conclusion_remarks,
+    lnap_processed_user,
+    lnap_processed_date
+) VALUES (
+    1, -- Replace with the actual customer ID
+    '2023-09-06',
+    2, -- Replace with the actual loan type ID
+    10000.00,
+    5000.00,
+    10000.00,
+    2,
+    750.0,
+    'APRV',
+    'Approved loan application',
+    1, -- Replace with the actual user ID
+    '2023-09-07'
+);
+
+INSERT INTO ms_loanApplicants (
+    lnap_cust_id,
+    lnap_apdate,
+    lnap_lnty_id,
+    lnap_amount,
+    lnap_emi_range_from,
+    lnap_emp_range_to,
+    lnap_nom_requested,
+    lnap_cibil_score,
+    lnap_status,
+    lnap_conclusion_remarks,
+    lnap_processed_user,
+    lnap_processed_date
+) VALUES (
+    2, -- Replace with the actual customer ID
+    '2023-09-08',
+    1, -- Replace with the actual loan type ID
+    15000.00,
+    750.00,
+    1200.00,
+    3,
+    300.0,
+    'RJCD', -- Rejected status
+    'Rejected due to low credit score',
+    2, -- Replace with the actual user ID
+    '2023-09-09'
+);
+
+INSERT INTO ms_customers (
+    cust_firstname,
+    cust_lastname,
+    cust_dob,
+    cust_panno,
+    cust_mobile,
+    cust_address,
+    cust_gname,
+    cust_luudate,
+    cust_luser
+) VALUES (
+    'Alice',
+    'Smith',
+    '1985-11-20',
+    'XYZAB5678G',
+    9876543211,
+    '456 Elm St, Town',
+    'Bob Smith',
+    '2023-09-07',
+    2  -- Assuming 2 is a valid cust_luser ID referring to an existing user in ms_auser table
+);
+
+select * from ms_loanApplicants;
+INSERT INTO loanApplicantsNominees (lnap_id, lnap_nominee, lanp_relation)
+VALUES (1, 'Nominee 1', 'Spouse');
+INSERT INTO loanApplicantsNominees (lnap_id, lnap_nominee, lanp_relation)
+VALUES (2, 'Nominee 2', 'Child');
+
+select * from ramu_emp;
+drop table ishwarya;
+create table ishwarya as select * from ramu_emp;
+select * from ishwarya;
+
+
+INSERT INTO ms_auser (auser_username, auser_password) VALUES
+    ('ishwarya', '111'),
+    ('mohan', '999'),
+    ('sai', '555');
+select * from ms_auser;
+
+INSERT INTO ms_customers (
+    cust_firstname,
+    cust_lastname,
+    cust_dob,
+    cust_panno,
+    cust_mobile,
+    cust_address,
+    cust_gname,
+    cust_luudate,
+    cust_luser
+) VALUES (
+    'ishu',
+    'niki',
+    '1990-05-15',
+    'ABCDE1234F',
+    9876543210,
+    '123 Main St, City',
+    'Jane Doe',
+    '2023-09-06',
+    1  
+);
+ select * from ms_customers;
+ 
+ INSERT INTO ms_loantypes (lnty_name, lnty_desc) VALUES
+    ('Personal Loan', 'Short-term unsecured personal loans.'),
+    ('Mortgage Loan', 'Long-term secured loans for home purchases.');
+    
+select * from ms_loantypes;
+
+
+
