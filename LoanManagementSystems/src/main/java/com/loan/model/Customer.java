@@ -17,7 +17,7 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cust_id")
-	private int id;
+	private int cid;
 
 	@Column(name = "cust_firstname")
 	private String firstName;
@@ -47,31 +47,12 @@ public class Customer {
 	@JoinColumn(name = "cust_luser")
 	private User lastUpdatedBy;
 
-	public Customer(int id, String firstName, String lastName, Date dateOfBirth, String panNumber, long mobileNumber,
-			String address, String guardianName, Date lastUpdatedAt, User lastUpdatedBy) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
-		this.panNumber = panNumber;
-		this.mobileNumber = mobileNumber;
-		this.address = address;
-		this.guardianName = guardianName;
-		this.lastUpdatedAt = lastUpdatedAt;
-		this.lastUpdatedBy = lastUpdatedBy;
+	public int getCid() {
+		return cid;
 	}
 
-	public Customer() {
-		super();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setCid(int cid) {
+		this.cid = cid;
 	}
 
 	public String getFirstName() {
@@ -148,7 +129,26 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "id=" + id;
+		return "cid=" + cid ;
+	}
+
+	public Customer(int cid, String firstName, String lastName, Date dateOfBirth, String panNumber, long mobileNumber,
+			String address, String guardianName, Date lastUpdatedAt, User lastUpdatedBy) {
+		super();
+		this.cid = cid;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.panNumber = panNumber;
+		this.mobileNumber = mobileNumber;
+		this.address = address;
+		this.guardianName = guardianName;
+		this.lastUpdatedAt = lastUpdatedAt;
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
+
+	public Customer() {
+		super();
 	}
 
 	// Constructors, getters, and setters
