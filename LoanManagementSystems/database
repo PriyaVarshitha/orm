@@ -11,13 +11,13 @@ Create table ishu_loanApplicants( lnap_id serial PRIMARY KEY, lnap_cust_id int, 
                                 lnap_conclusion_remarks varchar(255), lnap_processed_user int, lnap_processed_date date, FOREIGN KEY (lnap_processed_user) REFERENCES ish_auser(auser_id), 
                                 FOREIGN KEY (lnap_lnty_id) REFERENCES ish_loantypes(lnty_id), FOREIGN KEY (lnap_cust_id) REFERENCES ish_customers(cust_id) ); 
 
-CREATE TABLE ish_loanApplicantsNominees( lnap_id int, lnap_nominee varchar(50), lanp_relation varchar(50), FOREIGN KEY (lnap_id) REFERENCES ish_loanApplicants(lnap_id) ); 
+CREATE TABLE ishu_loanApplicantsNominees( lnap_id int, lnap_nominee varchar(50), lanp_relation varchar(50), FOREIGN KEY (lnap_id) REFERENCES ishu_loanApplicants(lnap_id) ); 
 SELECT * FROM ish_loanApplicantsNominees;
 SELECT * FROM ish_auser;
 SELECT * FROM ish_loantypes;
  SELECT * FROM ish_customers;
 SELECT * FROM ishu_loanApplicants;
- drop table ish_loanApplicant;    
+ drop table ish_loanApplicantsNominees;    
  
  
 INSERT INTO ish_auser (auser_username, auser_password) VALUES
@@ -134,7 +134,7 @@ INSERT INTO ishu_loanApplicants (
     ('Mortgage Loan', 'Long-term secured loans for home purchases.');
     
     
-INSERT INTO ish_loanApplicantsNominees (lnap_id, lnap_nominee, lanp_relation)
-VALUES (1, 'Nominee 1', 'Spouse');
-INSERT INTO ish_loanApplicantsNominees (lnap_id, lnap_nominee, lanp_relation)
+INSERT INTO ishu_loanApplicantsNominees (lnap_id, lnap_nominee, lanp_relation)
+VALUES (3, 'Nominee 1', 'Spouse');
+INSERT INTO ishu_loanApplicantsNominees (lnap_id, lnap_nominee, lanp_relation)
 VALUES (2, 'Nominee 2', 'Child');
