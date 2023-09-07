@@ -1,0 +1,140 @@
+CREATE TABLE ish_auser( auser_id serial PRIMARY KEY, auser_username varchar(20) UNIQUE NOT NULL, auser_password varchar(50) NOT NULL ); 
+
+
+CREATE TABLE ish_customers( cust_id serial PRIMARY KEY, cust_firstname varchar(50), cust_lastname varchar(50), cust_dob date, cust_panno varchar(10), cust_mobile bigint NOT NULL 
+                           CHECK (cust_mobile >= 1000000000 AND cust_mobile <= 9999999999), cust_address varchar(255), cust_gname varchar(50), cust_luudate date, cust_luser int, 
+                           FOREIGN KEY (cust_luser) REFERENCES ish_auser(auser_id) );
+CREATE TABLE ish_loantypes( lnty_id serial PRIMARY KEY, lnty_name varchar(50), lnty_desc varchar(255) ); 
+
+Create table ishu_loanApplicants( lnap_id serial PRIMARY KEY, lnap_cust_id int, lnap_apdate date, lnap_lnty_id smallint, lnap_amount numeric, lnap_emi_range_from numeric, lnap_emp_range_to numeric, lnap_nom_requested int, lnap_cibil_score numeric, --updated by company 
+                                lnap_status varchar(4), -- INPR/APRV/RJCD 
+                                lnap_conclusion_remarks varchar(255), lnap_processed_user int, lnap_processed_date date, FOREIGN KEY (lnap_processed_user) REFERENCES ish_auser(auser_id), 
+                                FOREIGN KEY (lnap_lnty_id) REFERENCES ish_loantypes(lnty_id), FOREIGN KEY (lnap_cust_id) REFERENCES ish_customers(cust_id) ); 
+
+CREATE TABLE ish_loanApplicantsNominees( lnap_id int, lnap_nominee varchar(50), lanp_relation varchar(50), FOREIGN KEY (lnap_id) REFERENCES ish_loanApplicants(lnap_id) ); 
+SELECT * FROM ish_loanApplicantsNominees;
+SELECT * FROM ish_auser;
+SELECT * FROM ish_loantypes;
+ SELECT * FROM ish_customers;
+SELECT * FROM ishu_loanApplicants;
+ drop table ish_loanApplicant;    
+ 
+ 
+INSERT INTO ish_auser (auser_username, auser_password) VALUES
+    ('ishwarya', '111'),
+    ('mohan', '999'),
+    ('sai', '555');
+    
+INSERT INTO ish_customers (
+    cust_firstname,
+    cust_lastname,
+    cust_dob,
+    cust_panno,
+    cust_mobile,
+    cust_address,
+    cust_gname,
+    cust_luudate,
+    cust_luser
+) VALUES (
+    'ishu',
+    'niki',
+    '1990-05-15',
+    'ABCDE1234F',
+    9876543210,
+    '123 Main St, City',
+    'Jane Doe',
+    '2023-09-06',
+    1  
+); 
+
+
+INSERT INTO ish_customers (
+    cust_firstname,
+    cust_lastname,
+    cust_dob,
+    cust_panno,
+    cust_mobile,
+    cust_address,
+    cust_gname,
+    cust_luudate,
+    cust_luser
+) VALUES (
+    'Alice',
+    'Smith',
+    '1985-11-20',
+    'XYZAB5678G',
+    9876543211,
+    '456 Elm St, Town',
+    'Bob Smith',
+    '2023-09-07',
+    2  -- Assuming 2 is a valid cust_luser ID referring to an existing user in ish_auser table
+);
+
+
+
+INSERT INTO ishu_loanApplicants (
+    lnap_cust_id,
+    lnap_apdate,
+    lnap_lnty_id,
+    lnap_amount,
+    lnap_emi_range_from,
+    lnap_emp_range_to,
+    lnap_nom_requested,
+    lnap_cibil_score,
+    lnap_status,
+    lnap_conclusion_remarks,
+    lnap_processed_user,
+    lnap_processed_date
+) VALUES (
+    1, -- Replace with the actual customer ID
+    '2023-09-06',
+    2, -- Replace with the actual loan type ID
+    10000.00,
+    5000.00,
+    10000.00,
+    2,
+    750.0,
+    'APRV',
+    'Approved loan application',
+    1, -- Replace with the actual user ID
+    '2023-09-07'
+);
+
+INSERT INTO ishu_loanApplicants (
+    lnap_cust_id,
+    lnap_apdate,
+    lnap_lnty_id,
+    lnap_amount,
+    lnap_emi_range_from,
+    lnap_emp_range_to,
+    lnap_nom_requested,
+    lnap_cibil_score,
+    lnap_status,
+    lnap_conclusion_remarks,
+    lnap_processed_user,
+    lnap_processed_date
+) VALUES (
+    2, -- Replace with the actual customer ID
+    '2023-09-08',
+    1, -- Replace with the actual loan type ID
+    15000.00,
+    750.00,
+    1200.00,
+    3,
+    300.0,
+    'RJCD', -- Rejected status
+    'Rejected due to low credit score',
+    2, -- Replace with the actual user ID
+    '2023-09-09'
+);
+
+
+ INSERT INTO ish_loantypes (lnty_name, lnty_desc) VALUES
+    ('Personal Loan', 'Short-term unsecured personal loans.'),
+    ('Mortgage Loan', 'Long-term secured loans for home purchases.');
+    
+    
+INSERT INTO ish_loanApplicantsNominees (lnap_id, lnap_nominee, lanp_relation)
+VALUES (1, 'Nominee 1', 'Spouse');
+INSERT INTO ish_loanApplicantsNominees (lnap_id, lnap_nominee, lanp_relation)
+VALUES (2, 'Nominee 2', 'Child');
