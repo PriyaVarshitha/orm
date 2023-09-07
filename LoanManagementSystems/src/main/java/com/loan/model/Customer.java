@@ -1,23 +1,19 @@
 package com.loan.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name = "ms_customers")
+@Table(name = "ish_customers")
 public class Customer {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cust_id")
-	private int cid;
+	private Integer cid;
 
 	@Column(name = "cust_firstname")
 	private String firstName;
@@ -43,15 +39,21 @@ public class Customer {
 	@Column(name = "cust_luudate")
 	private Date lastUpdatedAt;
 
-	@ManyToOne
-	@JoinColumn(name = "cust_luser")
-	private User lastUpdatedBy;
+	@Column(name = "cust_luser")
+	private Integer lastUpdatedBy;
 
-	public int getCid() {
+	@Transient
+	private User lastUpdatedByObj;
+
+	public Customer() {
+		super();
+	}
+
+	public Integer getCid() {
 		return cid;
 	}
 
-	public void setCid(int cid) {
+	public void setCid(Integer cid) {
 		this.cid = cid;
 	}
 
@@ -75,8 +77,8 @@ public class Customer {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = Date.valueOf(dateOfBirth);
 	}
 
 	public String getPanNumber() {
@@ -87,11 +89,11 @@ public class Customer {
 		this.panNumber = panNumber;
 	}
 
-	public long getMobileNumber() {
+	public Long getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(long mobileNumber) {
+	public void setMobileNumber(Long mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
@@ -115,25 +117,20 @@ public class Customer {
 		return lastUpdatedAt;
 	}
 
-	public void setLastUpdatedAt(Date lastUpdatedAt) {
-		this.lastUpdatedAt = lastUpdatedAt;
+	public void setLastUpdatedAt(String lastUpdatedAt) {
+		this.lastUpdatedAt = Date.valueOf(lastUpdatedAt);
 	}
 
-	public User getLastUpdatedBy() {
+	public Integer getLastUpdatedBy() {
 		return lastUpdatedBy;
 	}
 
-	public void setLastUpdatedBy(User lastUpdatedBy) {
+	public void setLastUpdatedBy(Integer lastUpdatedBy) {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
-	@Override
-	public String toString() {
-		return "cid=" + cid ;
-	}
-
 	public Customer(int cid, String firstName, String lastName, Date dateOfBirth, String panNumber, long mobileNumber,
-			String address, String guardianName, Date lastUpdatedAt, User lastUpdatedBy) {
+			String address, String guardianName, Date lastUpdatedAt, Integer lastUpdatedBy) {
 		super();
 		this.cid = cid;
 		this.firstName = firstName;
@@ -147,9 +144,12 @@ public class Customer {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
-	public Customer() {
-		super();
+	@Override
+	public String toString() {
+		return "Customer [cid=" + cid + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
+				+ dateOfBirth + ", panNumber=" + panNumber + ", mobileNumber=" + mobileNumber + ", address=" + address
+				+ ", guardianName=" + guardianName + ", lastUpdatedAt=" + lastUpdatedAt + ", lastUpdatedBy="
+				+ lastUpdatedBy + "]";
 	}
 
-	// Constructors, getters, and setters
 }

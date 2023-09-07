@@ -5,27 +5,30 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-@Table(name = "ms_loanApplicants")
+@Table(name = "ishu_loanApplicants")
 @Entity
 public class LoanApplicants {
 	@Id
 	@Column(name = "lnap_id")
 	private int id;
 
-	@ManyToOne
-	@JoinColumn(name = "lnap_cust_id")
-	private Customer customer;
+	@Column(name = "lnap_cust_id")
+	private Integer customer;
+
+	@Transient
+	private Customer customerObj;
 
 	@Column(name = "lnap_apdate")
 	private Date applicationDate;
 
-	@ManyToOne
-	@JoinColumn(name = "lnap_lnty_id")
-	private LoanType loanTypeId;
+	@Column(name = "lnap_lnty_id")
+	private Integer loanTypeId;
+
+	@Transient
+	private LoanType loanTypeIdObj;
 
 	@Column(name = "lnap_amount")
 	private double loanAmount;
@@ -48,16 +51,18 @@ public class LoanApplicants {
 	@Column(name = "lnap_conclusion_remarks")
 	private String conclusionRemarks;
 
-	@ManyToOne
-	@JoinColumn(name = "lnap_processed_user")
-	private User lastprocesseduser;
+	@Column(name = "lnap_processed_user")
+	private Integer lastprocesseduser;
+
+	@Transient
+	private User lastprocesseduserObj;
 
 	@Column(name = "lnap_processed_date")
 	private Date processedDate;
 
-	public LoanApplicants(int id, Customer customer, Date applicationDate, LoanType loanTypeId, double loanAmount,
+	public LoanApplicants(int id, Integer customer, Date applicationDate, Integer loanTypeId, double loanAmount,
 			double emiRangeFrom, double emiRangeTo, int numberOfMonthsRequested, double cibilScore, String status,
-			String conclusionRemarks, User lastprocesseduser, Date processedDate) {
+			String conclusionRemarks, Integer lastprocesseduser, Date processedDate) {
 		super();
 		this.id = id;
 		this.customer = customer;
@@ -86,11 +91,11 @@ public class LoanApplicants {
 		this.id = id;
 	}
 
-	public Customer getCustomer() {
+	public Integer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(Integer customer) {
 		this.customer = customer;
 	}
 
@@ -98,15 +103,15 @@ public class LoanApplicants {
 		return applicationDate;
 	}
 
-	public void setApplicationDate(Date applicationDate) {
-		this.applicationDate = applicationDate;
+	public void setApplicationDate(String applicationDate) {
+		this.applicationDate = Date.valueOf(applicationDate);
 	}
 
-	public LoanType getLoanTypeId() {
+	public Integer getLoanTypeId() {
 		return loanTypeId;
 	}
 
-	public void setLoanTypeId(LoanType loanTypeId) {
+	public void setLoanTypeId(Integer loanTypeId) {
 		this.loanTypeId = loanTypeId;
 	}
 
@@ -166,11 +171,11 @@ public class LoanApplicants {
 		this.conclusionRemarks = conclusionRemarks;
 	}
 
-	public User getLastprocesseduser() {
+	public Integer getLastprocesseduser() {
 		return lastprocesseduser;
 	}
 
-	public void setLastprocesseduser(User lastprocesseduser) {
+	public void setLastprocesseduser(Integer lastprocesseduser) {
 		this.lastprocesseduser = lastprocesseduser;
 	}
 
@@ -178,17 +183,34 @@ public class LoanApplicants {
 		return processedDate;
 	}
 
-	public void setProcessedDate(Date processedDate) {
-		this.processedDate = processedDate;
+	public void setProcessedDate(String processedDate) {
+		this.processedDate = Date.valueOf(processedDate);
 	}
 
-	@Override
-	public String toString() {
-		return "LoanApplicants [id=" + id + ", customer=" + customer + ", applicationDate=" + applicationDate
-				+ ", loanTypeId=" + loanTypeId + ", loanAmount=" + loanAmount + ", emiRangeFrom=" + emiRangeFrom
-				+ ", emiRangeTo=" + emiRangeTo + ", numberOfMonthsRequested=" + numberOfMonthsRequested
-				+ ", cibilScore=" + cibilScore + ", status=" + status + ", conclusionRemarks=" + conclusionRemarks
-				+ ", lastprocesseduser=" + lastprocesseduser + ", processedDate=" + processedDate + "]";
+	public void transfer(InputLoanApplicants obj) {
+		this.applicationDate = obj.getApplicationDate();
+		this.cibilScore = obj.getCibilScore();
+		this.conclusionRemarks = obj.getConclusionRemarks();
+		this.emiRangeFrom = obj.getEmiRangeFrom();
+		this.emiRangeTo = obj.getEmiRangeTo();
+		this.id = obj.getId();
+		this.loanAmount = obj.getLoanAmount();
+		this.status = obj.getStatus();
+		this.numberOfMonthsRequested = obj.getNumberOfMonthsRequested();
+		this.processedDate = obj.getProcessedDate();
+		this.customer = obj.getCustomer();
+		this.loanTypeId = obj.getLoanTypeId();
+		this.lastprocesseduser = obj.getLastprocesseduser();
+
 	}
+
+	// @Override
+	// public String toString() {
+	// return "LoanApplicants [id=" + id + ", customer=" + customer + ", applicationDate=" + applicationDate
+	// + ", loanTypeId=" + loanTypeId + ", loanAmount=" + loanAmount + ", emiRangeFrom=" + emiRangeFrom
+	// + ", emiRangeTo=" + emiRangeTo + ", numberOfMonthsRequested=" + numberOfMonthsRequested
+	// + ", cibilScore=" + cibilScore + ", status=" + status + ", conclusionRemarks=" + conclusionRemarks
+	// + ", lastprocesseduser=" + lastprocesseduser + ", processedDate=" + processedDate + "]";
+	// }
 
 }

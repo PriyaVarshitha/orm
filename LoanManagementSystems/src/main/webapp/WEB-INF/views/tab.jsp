@@ -98,184 +98,227 @@ body {
 <title>form</title>
 </head>
 <body>
+    <center>
+        <h2 style="color: white; font-size: 40px;">Loan Application</h2>
+    </center>
+    <div class="form-container">
+        <div class="tabs">
+            <button class="tab" onclick="showTab(0)">Step - 1 >> </button>
+            <button class="tab" onclick="showTab(1)">Step - 2 >></button>
+            <button class="tab" onclick="showTab(2)">Step - 3 >></button>
+            <button class="tab">Preview</button>
+        </div>
+            <script>
+        let currentTab = 0;
 
-	<div class="container">
-		<div class="topnav navbar navbar-expand-lg navbar-light bg-light">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link active"
-					href="javascript:void(0);" onclick="showTab(0)">CUSTOMER</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="javascript:void(0);" onclick="showTab(1)">LOAN
-						APPLICATION</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="javascript:void(0);" onclick="showTab(2)">NOMINEE</a></li>
-			</ul>
-		</div>
-	</div>
+        function showTab(tabIndex) {
+            const formParts = document.querySelectorAll('.form-part');
+            formParts[currentTab].style.display = 'none';
+            formParts[tabIndex].style.display = 'block';
 
+            // Remove the 'active-tab' class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(button => button.classList.remove('active-tab'));
 
-	<script>
-		$(document).ready(
+            // Add the 'active-tab' class to the current tab button
+            tabButtons[tabIndex].classList.add('active-tab');
 
-		function() {
-			showTab(0);
-		}
+            currentTab = tabIndex;
+        }
 
-		)
-		let tabIndex = 0;
+        function nextTab(tabIndex) {
+            const form = document.getElementById(`form-part-${tabIndex + 1}`);
+            if (form.checkValidity()) {
+                showTab(tabIndex + 1);
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        }
 
-		function showTab(index) {
-			const forms = document.getElementsByClassName("form-part");
-			const tabs = document.getElementsByClassName("topnav")[0]
-					.getElementsByTagName("a");
+        function prevTab(tabIndex) {
+            showTab(tabIndex - 1);
+        }
+    </script>
+        <div class="form-box">
+            <div class="form-part">
+                <h2>Personal Details</h2>
+                <b>FirstName : </b>
+                <input type="text" id="firstName" placeholder="Enter FirstName"><br>
+                <b>LastName : </b>
+                <input type="text" id="lastName" placeholder="Enter Last name"><br>
+                <b>Date of Birth : </b><br>
+                <input type="date" id="dateOfBirth" placeholder="Enter date of birth"><br>
+                <b>PAN card No : </b>
+                <input type="text" id="panNumber" placeholder="Enter PAN number"><br>
+                <b>Address : </b>
+                <input type="text" id="address" placeholder="Enter address"><br>
 
-			if (index >= 0 && index < forms.length) {
-				for (let i = 0; i < forms.length; i++) {
-					forms[i].style.display = "none";
-					tabs[i].classList.remove("active");
-				}
-				forms[index].style.display = "block";
-				tabs[index].classList.add("active");
-				tabIndex = index;
+                <button class="form-button" type="button" onclick="nextTab(0)">Next</button>
+            </div>
+            <div class="form-part" style="display: none;">
+                <h2>Loan Details</h2>
+                <b>Loan Amount : </b><br>
+                <input type="text" id="amount" placeholder="Enter Amount"><br>
+                <b>Loan Type: </b>
+                <select name="" id="loanType">
+                    <option value="0">--Select Loan Type--</option>
+                    <option value="1">Personal Loan</option>
+                    <option value="2">Mortgage Loan</option>
+                    <option value="3">Auto Loan</option>
+                    <option value="5">Education Loan</option>
+                    <option value="4">Business Loan</option>
+                </select><br>
+                <b>Annual Income: </b>
+                <input type="text" id="AnnIcm" placeholder="Enter Your Annual income"><br>
+                <b>Disposable Income: </b>
+                <input type="text" id="DisIcm" placeholder="Enter Your Disposable Income"><br>
+                <b>Number of months : </b>
+                <input type="text" id="noOfMonths" placeholder="Enter Number of months"><br>
 
-			}
+                <button class="form-button" type="button" onclick="prevTab(1)">Back</button>
+                <button class="form-button" type="button" onclick="nextTab(1)">Next</button>
+            </div>
+            <div class="form-part" style="display: none;">
+                <b>Guardian Name : </b>
+                <input type="text" id="gName" placeholder="Enter guardian name"><br>
+                <b>Your Mobile Number : </b><br>
+                <input type="tel" id="mobileNumber" placeholder="Enter mobile number"><br>
 
-		}
+                <h2>Nominee Details</h2>
+                <b>Enter Nominee name </b>
+                <input type="text" id="nomFullname" placeholder="Enter FullName"><br>
+                <b>Relation </b>
+                <input type="text" id="nomRelation" placeholder="Enter Relation with Nominee"><br>
 
-		function nextTab() {
-			showTab(tabIndex +1);
-			
-		}
+                <button class="form-button" type="button" onclick="prevTab(2)">Back</button>
+                <button class="form-button" type="button" onclick="getPreview()">Preview</button>
+            </div>
+            <form action="submitApplication" id="form-part-1" method="get">
+                <div class="form-part" style="display: none;">
+                    <h2>Preview Your details before Submitting..!!</h2>
 
-		function prevTab() {
-			showTab(tabIndex - 1);
-		}
-
-		// Display the first form part initially
-		showTab(0);
-	</script>
-	<form action="preview" method="get">
-		<div class="form-part">
-			
-				<div>
-					First Name:<input type="text" id="firstName" name="firstName">
-				</div>
-				<div>
-					Last Name: <input type="text" id="lastName" name="lastName">
-				</div>
-				<div>
-					Date of Birth:<input type="text" id="dateOfBirth"
-						name="dateOfBirth">
-				</div>
-				<div>
-					PAN Number:<input type="text" id="panNumber" name="panNumber">
-				</div>
-				<div>
-					Mobile Number:<input type="text" id="mobileNumber"
-						name="mobileNumber">
-				</div>
-				<div>
-					Address:<input type="text" id="address" name="address">
-				</div>
-				<div>
-					Guardian Name:<input type="text" id="guardianName"
-						name="guardianName">
-				</div>
-				<div>
-					Last Updated At:<input type="text" id="lastUpdatedAt"
-						name="lastUpdatedAt">
-				</div>
-				<div>
-					Last Updated By:<input type="text" id="lastUpdatedBy"
-						name="lastUpdatedBy">
-				</div>
-				<button type="button" onclick="nextTab()">Next</button>
-			
-		</div>
-
-		<div class="form-part">
-			
-
-				<div>
-					<label for="id">ID:</label> <input type="text" id="id" name="id">
-				</div>
-				<div>
-					<label for="customer">Customer ID:</label> <input type="text"
-						id="customer" name="customer">
-				</div>
-				<div>
-					<label for="applicationDate">Application Date:</label> <input
-						type="text" id="applicationDate" name="applicationDate">
-				</div>
-				<div>
-					<label for="loanType">Loan Type ID:</label> <input type="text"
-						id="loanType" name="loanType">
-				</div>
-				<div>
-					<label for="loanAmount">Loan Amount:</label> <input type="text"
-						id="loanAmount" name="loanAmount">
-				</div>
-				<div>
-					<label for="emiRangeFrom">EMI Range (From):</label> <input
-						type="text" id="emiRangeFrom" name="lnap_emi_range_from">
-				</div>
-				<div>
-					<label for="emiRangeTo">EMI Range (To):</label> <input type="text"
-						id="emiRangeTo" name="emiRangeTo">
-				</div>
-				<div>
-					<label for="numberOfMonthsRequested">Number of Months
-						Requested:</label> <input type="text" id="numberOfMonthsRequested"
-						name="numberOfMonthsRequested">
-				</div>
-				<div>
-					<label for="cibilScore">CIBIL Score:</label> <input type="text"
-						id="cibilScore" name="cibilScore">
-				</div>
-				<div>
-					<label for="status">Status:</label> <input type="text" id="status"
-						name="status">
-				</div>
-				<div>
-					<label for="conclusionRemarks">Conclusion Remarks:</label> <input
-						type="text" id="conclusionRemarks" name="lnap_conclusion_remarks">
-				</div>
-				<div>
-					<label for="processedUser">Processed User:</label> <input
-						type="text" id="processedUser" name="processedUser">
-				</div>
-				<div>
-					<label for="processedDate">Processed Date:</label> <input
-						type="text" id="processedDate" name="processedDate">
-				</div>
-				<button type="button" onclick="prevTab()">Previous</button>
-				<button type="button" onclick="nextTab()">Next</button>
-
-			
-		</div>
-
-		<div class="form-part">
-			
-
-				<div>
-					<label for="id">ID:</label> <input type="text" id="nid" name="id">
-				</div>
-				<div>
-					<label for="nominee">Nominee:</label> <input type="text"
-						id="nominee" name="nominee">
-				</div>
-				<div>
-					<label for="relation">Relation:</label> <input type="text"
-						id="relation" name="relation">
-				</div>
-				<button type="button" onclick="prevTab()">Previous</button>
-			
-		</div>
-	   <button type="submit">Submit</button>
-
-	</form>
-
-
-
+                    <table border="0">
+                        <tr>
+                            <td class="hpreview"><b>Personal Details:</b></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>First Name: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="fname" name="firstName"
+                                    value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Last Name: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="lname" name="lastName"
+                                    value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date of Birth: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="dob" name="dateOfBirth"
+                                    value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PAN Number: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="panNum" name="pANNumber"
+                                    value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Address: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="addrs" name="address"
+                                    value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="hpreview"><b>Loan Details:</b></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Amount Required: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="amt" name="lnAmount" value=""
+                                    >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Loan Type: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="lnType" name="lnType"
+                                    value="" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Annual Income: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="aIncome" name="aIncome"
+                                    value="" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Disposable Income: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="dIncome" name="dIncome"
+                                    value="" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Months Requested: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="nOMonths"
+                                    name="monthsRequired" value="" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="hpreview"><b>Guardian and Nominee Details:</b></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Guardian Name: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="gurdnName" name="gurdName"
+                                    value="" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Your Mobile Number: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="phNumber" name="phNumber"
+                                    value="" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nominee Name: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="nomFName" name="nName"
+                                    value="" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Relation with Nominee: </td>
+                            <td class="tdinptpreview"><input class="inptd" type="text" id="nomRel" name="nRelation"
+                                    value="" >
+                            </td>
+                        </tr>
+                    </table><br>
+                    <button class="form-button" type="button" onclick="prevTab(1)">Edit</button>
+                    <button class="form-button" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div><br><br>
+    <script>
+        function getPreview() {
+            nextTab(2);
+            document.getElementById("fname").value = document.getElementById("firstName").value;
+            document.getElementById("lname").value = document.getElementById("lastName").value;
+            document.getElementById("dob").value = document.getElementById("dateOfBirth").value;
+            document.getElementById("panNum").value = document.getElementById("panNumber").value;
+            document.getElementById("addrs").value = document.getElementById("address").value;
+            document.getElementById("amt").value = document.getElementById("amount").value;
+            document.getElementById("lnType").value = document.getElementById("loanType").value;
+            document.getElementById("aIncome").value = document.getElementById("AnnIcm").value;
+            document.getElementById("dIncome").value = document.getElementById("DisIcm").value;
+            document.getElementById("nOMonths").value = document.getElementById("noOfMonths").value;
+            document.getElementById("gurdnName").value = document.getElementById("gName").value;
+            document.getElementById("phNumber").value = document.getElementById("mobileNumber").value;
+            document.getElementById("nomFName").value = document.getElementById("nomFullname").value;
+            document.getElementById("nomRel").value = document.getElementById("nomRelation").value;
+        }
+    </script>
 </body>
 </html>

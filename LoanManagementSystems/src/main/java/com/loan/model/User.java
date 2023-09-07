@@ -2,23 +2,21 @@ package com.loan.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ms_auser")
+@Table(name = "ish_auser")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	@Column(name = "auser_id")
 	private int id;
 
-	@Column(name = "auser_username", unique = true, nullable = false)
+	@Column(name = "auser_username")
 	private String username;
 
-	@Column(name = "auser_password", nullable = false)
+	@Column(name = "auser_password")
 	private String password;
 
 	public int getId() {
