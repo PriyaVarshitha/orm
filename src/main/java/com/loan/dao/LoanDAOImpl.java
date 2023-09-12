@@ -61,4 +61,7 @@ public class LoanDAOImpl {
 			// The changes will be automatically flushed and updated in the database upon transaction completion.
 		}
 	}
+	public User getUserBYId(Long userId) {
+		return (User) em.createQuery("SELECT e FROM User e WHERE e.userId = :paramValue").setParameter("paramValue", userId).getSingleResult();
+	}
 }

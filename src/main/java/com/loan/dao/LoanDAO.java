@@ -23,4 +23,5 @@ public interface LoanDAO {
 	List<Customer> getAllCustomers();
 
 	void edite(LoanApplicants u);
+	User getUserBYId(Long userId);
 }

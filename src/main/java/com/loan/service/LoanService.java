@@ -50,6 +50,16 @@ public class LoanService {
 
 	}
 
+	public boolean usercheck(User u) {
+
+		User l = loandao.getUserBYId(u.getUserId());
+		if (l.getUserId().equals(u.getUserId()) && l.getPassword().equals(u.getPassword()) && l.getUsername().equals(u.getUsername())) {
+			return true;
+		}
+
+		return false;
+	}
+
 	//////////////////// loannomineee
 	@Transactional
 	public void addn(LoanApplicantNominees l) {

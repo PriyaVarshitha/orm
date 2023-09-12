@@ -71,6 +71,7 @@
 					<th>LOAN STATUS</th>
 					<th>CONCLUSION REMARKS</th>
 					<th>Edit Record</th>
+					<th>Emi schedule</th>
 
 				</tr>
 			</thead>
@@ -127,7 +128,6 @@
 	<!-- Include jQuery for JavaScript functionality -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script>
-
 	
     // Filter Functionality
     $(document).ready(function () {

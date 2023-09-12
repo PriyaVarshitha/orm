@@ -47,23 +47,6 @@ public class LoanManagementContoller {
 		return "loanlist";
 	}
 
-	@RequestMapping(value = "/record", method = RequestMethod.GET)
-	public String getAllloan(Model model) {
-		System.out.println("loan List JSP Requested");
-
-		List<LoanApplicants> l = loanserv.listAll();
-
-		model.addAttribute("list", l);
-
-		return "records";
-	}
-
-	@RequestMapping(value = "/schedule", method = RequestMethod.GET)
-	public String ViewSchedule(LoanApplicants la, Model model) {
-		model.addAttribute("llist", la);
-		return "schedule";
-	}
-
 	@RequestMapping(value = "/addloan", method = RequestMethod.GET)
 	public String addNewEmployee(Model model) {
 		System.out.println("Add a record");
@@ -104,9 +87,8 @@ public class LoanManagementContoller {
 
 	@RequestMapping(value = "/Editapplicant", method = RequestMethod.GET)
 	public String View(LoanApplicants la, Model model) {
-		loanserv.edit(la);
 		model.addAttribute("llist", la);
-		return "statuschange";
+		return "schedule";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -167,11 +149,12 @@ public class LoanManagementContoller {
 		b.setNid(a.getId());
 		loanserv.addn(b);
 
-		return "updated";
+		return "updation";
 	}
 
 	// @RequestMapping(value = "/save1", method = RequestMethod.GET)
-	// public String saveNewEmployee1(@Validated InputLoanApplicants data, Model model) {
+	// public String saveNewEmployee1(@Validated InputLoanApplicants data, Model
+	// model) {
 	// System.out.println("Save New Employee Page Requested");
 	// // get all employees from DAO
 	// LoanApplicants l = new LoanApplicants();
@@ -236,9 +219,19 @@ public class LoanManagementContoller {
 	public String saveNewCustomer(@Validated Customer l, Model model) {
 		System.out.println("Save New Employee Page Requested");
 		loanserv.addCustomer(l);
-		model.addAttribute("customer", l);
+		model.addAttribute("customer", l);	return "savecustomer";
+	}
 
-		return "savecustomer";
+
+
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public String logindata(@Validated User u, Model model) {
+		if (!loanserv.usercheck(u)) {
+			return "login";
+		} else {
+			return "list";
+			}
+			
 	}
 
 }

@@ -27,7 +27,7 @@
 <body>
     <div class="container">
         <h2>Login or Register</h2>
-        <form>
+        <form action="user" mehod="get">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">

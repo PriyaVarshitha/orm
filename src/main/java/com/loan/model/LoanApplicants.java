@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@Table(name = "ishu_loanApplicants")
+@Table(name = "ms_loanApplicants")
 @Entity
 public class LoanApplicants {
 	@Id

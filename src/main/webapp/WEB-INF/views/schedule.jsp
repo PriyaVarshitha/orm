@@ -6,31 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Loan EMI Calculator</title>
-<!-- Add Bootstrap CSS link -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<style>
-    /* Add custom CSS styles */
-    body {
-        padding: 20px;
-    }
-    .btn-group {
-        margin-bottom: 20px;
-    }
-    /* Add styling for the table */
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-</style>
+<title>Insert title here</title>
 </head>
 <body>
     <%
@@ -52,7 +28,7 @@
         onclick="createEmiScheduleTable()">Generate Schedule</button>
     <p id="emiResult"></p>
 
-    <div id="scheduleDiv"></div>
+    <div id="emi-schedule-container"></div>
 
     <script>
         function calculateEMI() {
@@ -76,10 +52,10 @@
             const emi = parseFloat(document.getElementById('emiResult').textContent.split(': ')[1]);
             
             // Clear previous content in the container
-            const emitable = document.getElementById('scheduleDiv');
-            emitable.innerHTML = '';
+            const tableContainer = document.getElementById('emi-schedule-container');
+            tableContainer.innerHTML = '';
 
-            // Create a table element with Bootstrap styling
+            // Create a table element
             const table = document.createElement('table');
             table.className = 'table table-striped';
             
@@ -111,7 +87,8 @@
                 currentDate.setMonth(currentDate.getMonth() + 1);
             }
 
-            emitable.appendChild(table);
+            // Append the table to the container
+            tableContainer.appendChild(table);
         }
     </script>
 </body>
