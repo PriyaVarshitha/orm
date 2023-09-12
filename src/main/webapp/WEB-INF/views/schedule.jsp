@@ -6,7 +6,31 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Loan EMI Calculator</title>
+<!-- Add Bootstrap CSS link -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    /* Add custom CSS styles */
+    body {
+        padding: 20px;
+    }
+    .btn-group {
+        margin-bottom: 20px;
+    }
+    /* Add styling for the table */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
 </head>
 <body>
     <%
@@ -55,7 +79,7 @@
             const emitable = document.getElementById('scheduleDiv');
             emitable.innerHTML = '';
 
-            // Create a table element
+            // Create a table element with Bootstrap styling
             const table = document.createElement('table');
             table.className = 'table table-striped';
             
@@ -87,7 +111,6 @@
                 currentDate.setMonth(currentDate.getMonth() + 1);
             }
 
-            
             emitable.appendChild(table);
         }
     </script>
